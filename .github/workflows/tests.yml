@@ -151,7 +151,15 @@ jobs:
         slowest-report: true
         skipped-report: true
         upload-artifact: true
-        suite-folded-report: true
+
+    - name: Add test status summary
+      if: always()
+      run: |
+        (
+          echo "# Test Status"
+          echo
+          pnpm ./scripts/test-status.ts
+        ) >> $GITHUB_STEP_SUMMARY
 
     - name: Upload ctrf reports
       if: always()

@@ -89,6 +89,9 @@ importers:
       chromedriver:
         specifier: ^143.0.4
         version: 143.0.4
+      ctrf:
+        specifier: ^0.0.17
+        version: 0.0.17
       del:
         specifier: ^8.0.1
         version: 8.0.1
@@ -168,8 +171,8 @@ importers:
         specifier: ^11.7.5
         version: 11.7.5
       mocha-ctrf-json-reporter:
-        specifier: ^0.0.10
-        version: 0.0.10
+        specifier: https://github.com/kmaglione/mocha-ctrf-json-reporter/releases/download/v0.0.11/mocha-ctrf-json-reporter.tgz
+        version: https://github.com/kmaglione/mocha-ctrf-json-reporter/releases/download/v0.0.11/mocha-ctrf-json-reporter.tgz
       node-stream-zip:
         specifier: ^1.15.0
         version: 1.15.0
@@ -2004,8 +2007,8 @@ packages:
   '@types/node@20.19.28':
     resolution: {integrity: sha512-VyKBr25BuFDzBFCK5sUM6ZXiWfqgCTwTAOK8qzGV/m9FCirXYDlmczJ+d5dXBAQALGCdRRdbteKYfJ84NGEusw==}
 
-  '@types/node@22.19.5':
-    resolution: {integrity: sha512-HfF8+mYcHPcPypui3w3mvzuIErlNOh2OAG+BCeBZCEwyiD5ls2SiCwEyT47OELtf7M3nHxBdu0FsmzdKxkN52Q==}
+  '@types/node@22.19.6':
+    resolution: {integrity: sha512-qm+G8HuG6hOHQigsi7VGuLjUVu6TtBo/F05zvX04Mw2uCg9Dv0Qxy3Qw7j41SidlTcl5D/5yg0SEZqOB+EqZnQ==}
 
   '@types/node@25.0.6':
     resolution: {integrity: sha512-NNu0sjyNxpoiW3YuVFfNz7mxSQ+S4X2G28uqg2s+CzoqoQjLPsWSbsFFyztIAqt2vb8kfEAsJNepMGPTxFDx3Q==}
@@ -2366,6 +2369,14 @@ packages:
   aggregate-error@3.1.0:
     resolution: {integrity: sha512-4I7Td01quW/RpocfNayFdFVk1qSuoh0E7JrbRJ16nH01HhKFQ88INq9Sd+nd72zqRySlr9BmDA8xlEJ6vJMrYA==}
     engines: {node: '>=8'}
+
+  ajv-formats@3.0.1:
+    resolution: {integrity: sha512-8iUql50EUR+uUcdRQ3HDqa6EVyo3docL8g5WJ3FNcWmu62IbkGUue/pEyLBW8VGKKucTPgqeks4fIU1DA4yowQ==}
+    peerDependencies:
+      ajv: ^8.0.0
+    peerDependenciesMeta:
+      ajv:
+        optional: true
 
   ajv@6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}
@@ -2926,6 +2937,10 @@ packages:
     resolution: {integrity: sha512-BSeNnyus75C4//NQ9gQt1/csTXyo/8Sb+afLAkzAptFuMsod9HFokGNudZpi/oQV73hnVK+sR+5PVRMd+Dr7YQ==}
     engines: {node: '>=12'}
 
+  cliui@9.0.1:
+    resolution: {integrity: sha512-k7ndgKhwoQveBL+/1tqGJYNz097I7WOvwbmmU2AR5+magtbjPWQTS1C5vzGkBC8Ym8UWRzfKUzUUqFLypY4Q+w==}
+    engines: {node: '>=20'}
+
   clone-buffer@1.0.0:
     resolution: {integrity: sha512-KLLTJWrvwIP+OPfMn0x2PheDEP20RPUcGXj/ERegTgdmPEZylALQldygiqrPPu8P45uNuPs7ckmReLY6v/iA5g==}
     engines: {node: '>= 0.10'}
@@ -3125,6 +3140,11 @@ packages:
 
   csv-stringify@6.6.0:
     resolution: {integrity: sha512-YW32lKOmIBgbxtu3g5SaiqWNwa/9ISQt2EcgOq0+RAIFufFp9is6tqNnKahqE5kuKvrnYAzs28r+s6pXJR8Vcw==}
+
+  ctrf@0.0.17:
+    resolution: {integrity: sha512-PPk9b+AuA+UoBcbzSQWXMIuh5601zDHgXlmHIG8ESxTUnnb0eM2sz8H3jQLYQZTpyIaZVCLFZFslIDB1EMVZ1g==}
+    engines: {node: '>=20.19.0'}
+    hasBin: true
 
   d3-array@2.12.1:
     resolution: {integrity: sha512-B0ErZK/66mHtEsR1TkPEEkwdy+WDesimkM5gpZr5Dsg54BiTA5RXtYW5qTLIAcekaS9xfZrzBLF/OAkB3Qn1YQ==}
@@ -5323,8 +5343,9 @@ packages:
   mlly@1.8.0:
     resolution: {integrity: sha512-l8D9ODSRWLe2KHJSifWGwBqpTZXIXTeo8mlKjY+E2HAakaTeNpqAyBZ8GSqLzHgw4XmHmC8whvpjJNMbFZN7/g==}
 
-  mocha-ctrf-json-reporter@0.0.10:
-    resolution: {integrity: sha512-kp5L582eKouSrYO3YyCpeswMYNRq3HvCdnC8479NnqRgBxB5stABF9PetYQx4R+rlxXWtKdr9WYnlwj36A6JqQ==}
+  mocha-ctrf-json-reporter@https://github.com/kmaglione/mocha-ctrf-json-reporter/releases/download/v0.0.11/mocha-ctrf-json-reporter.tgz:
+    resolution: {tarball: https://github.com/kmaglione/mocha-ctrf-json-reporter/releases/download/v0.0.11/mocha-ctrf-json-reporter.tgz}
+    version: 0.0.11
 
   mocha@10.8.2:
     resolution: {integrity: sha512-VZlYo/WE8t1tstuRmqgeyBgCbJc/lEdopaa+axcKzTBJ+UIdlAB9XnmvTCAH4pwR4ElNInaedhEBmZD8iCSVEg==}
@@ -7176,6 +7197,10 @@ packages:
     resolution: {integrity: sha512-tVpsJW7DdjecAiFpbIB1e3qxIQsE6NoPc5/eTdrbbIC4h0LVsWhnoa3g+m2HclBIujHzsxZ4VJVA+GUuc2/LBw==}
     engines: {node: '>=12'}
 
+  yargs-parser@22.0.0:
+    resolution: {integrity: sha512-rwu/ClNdSMpkSrUb+d6BRsSkLUq1fmfsY6TOpYzTwvwkg1/NRG85KBy3kq++A8LKQwX6lsu+aWad+2khvuXrqw==}
+    engines: {node: ^20.19.0 || ^22.12.0 || >=23}
+
   yargs-unparser@2.0.0:
     resolution: {integrity: sha512-7pRTIA9Qc1caZ0bZ6RYRGbHJthJWuakf+WmHK0rVeLkNrrGhfoabBNdue6kdINI6r4if7ocq9aD/n7xwKOdzOA==}
     engines: {node: '>=10'}
@@ -7191,6 +7216,10 @@ packages:
   yargs@17.7.2:
     resolution: {integrity: sha512-7dSzzRQ++CKnNI/krKnYRV7JKKPUXMEh61soaHKg9mrWEhzFWhFnxPxGl+69cD1Ou63C13NUPCnmIcrvqCuM6w==}
     engines: {node: '>=12'}
+
+  yargs@18.0.0:
+    resolution: {integrity: sha512-4UEqdc2RYGHZc7Doyqkrqiln3p9X2DZVxaGbwhn2pi7MrRagKaOcIKe8L3OxYcbhXLgLFUS3zAYuQjKBQgmuNg==}
+    engines: {node: ^20.19.0 || ^22.12.0 || >=23}
 
   yauzl@2.10.0:
     resolution: {integrity: sha512-p4a9I6X6nu6IhoGmBqAcbJy1mlC4j27vEPZX9F4L4/vZT3Lyq1VkFHw/V/PUcB9Buo+DG3iHkT0x3Qya58zc3g==}
@@ -9294,7 +9323,7 @@ snapshots:
     dependencies:
       undici-types: 6.21.0
 
-  '@types/node@22.19.5':
+  '@types/node@22.19.6':
     dependencies:
       undici-types: 6.21.0
 
@@ -9719,7 +9748,7 @@ snapshots:
 
   '@wdio/reporter@8.43.0':
     dependencies:
-      '@types/node': 22.19.5
+      '@types/node': 22.19.6
       '@wdio/logger': 8.38.0
       '@wdio/types': 8.41.0
       diff: 7.0.0
@@ -9764,7 +9793,7 @@ snapshots:
 
   '@wdio/types@8.41.0':
     dependencies:
-      '@types/node': 22.19.5
+      '@types/node': 22.19.6
 
   '@wdio/types@9.20.0':
     dependencies:
@@ -9841,6 +9870,10 @@ snapshots:
     dependencies:
       clean-stack: 2.2.0
       indent-string: 4.0.0
+
+  ajv-formats@3.0.1(ajv@8.17.1):
+    optionalDependencies:
+      ajv: 8.17.1
 
   ajv@6.12.6:
     dependencies:
@@ -10482,6 +10515,12 @@ snapshots:
       strip-ansi: 6.0.1
       wrap-ansi: 7.0.0
 
+  cliui@9.0.1:
+    dependencies:
+      string-width: 7.2.0
+      strip-ansi: 7.1.2
+      wrap-ansi: 9.0.2
+
   clone-buffer@1.0.0: {}
 
   clone-stats@1.0.0: {}
@@ -10684,6 +10723,14 @@ snapshots:
   cssesc@3.0.0: {}
 
   csv-stringify@6.6.0: {}
+
+  ctrf@0.0.17:
+    dependencies:
+      ajv: 8.17.1
+      ajv-formats: 3.0.1(ajv@8.17.1)
+      glob: 11.1.0
+      typescript: 5.9.3
+      yargs: 18.0.0
 
   d3-array@2.12.1:
     dependencies:
@@ -13156,7 +13203,7 @@ snapshots:
       pkg-types: 1.3.1
       ufo: 1.6.2
 
-  mocha-ctrf-json-reporter@0.0.10:
+  mocha-ctrf-json-reporter@https://github.com/kmaglione/mocha-ctrf-json-reporter/releases/download/v0.0.11/mocha-ctrf-json-reporter.tgz:
     dependencies:
       md5: 2.3.0
 
@@ -15437,6 +15484,8 @@ snapshots:
 
   yargs-parser@21.1.1: {}
 
+  yargs-parser@22.0.0: {}
+
   yargs-unparser@2.0.0:
     dependencies:
       camelcase: 6.3.0
@@ -15477,6 +15526,15 @@ snapshots:
       string-width: 4.2.3
       y18n: 5.0.8
       yargs-parser: 21.1.1
+
+  yargs@18.0.0:
+    dependencies:
+      cliui: 9.0.1
+      escalade: 3.2.0
+      get-caller-file: 2.0.5
+      string-width: 7.2.0
+      y18n: 5.0.8
+      yargs-parser: 22.0.0
 
   yauzl@2.10.0:
     dependencies:
