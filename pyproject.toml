@@ -11,6 +11,7 @@ dependencies = [
 
 [dependency-groups]
 test = [
+    "allure-pytest>=2.15.3",
     "coverage>=7.13.1",
     "pyfakefs>=6.0.0",
     "pytest (>=9.0.2,<10.0.0)",
@@ -64,6 +65,7 @@ exclude = [
 [tool.pytest]
 asyncio_mode = "auto"
 addopts = [
+    "--alluredir=allure/results",
     "--doctest-modules",
     # We need "dist" to appear before "." in `sys.path` so that our add-on
     # modules are imported from dist/ rather than ankiwanikanisync/, where

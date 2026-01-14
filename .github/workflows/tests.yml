@@ -3,7 +3,9 @@ name: Tests
 on: [push, pull_request]
 
 permissions:
+  checks: write
   contents: read
+  pull-requests: write
 
 jobs:
   build:
@@ -93,11 +95,16 @@ jobs:
       if: ${{ !cancelled() && steps.install.conclusion == 'success' }}
       run: pnpm gulp build_quick
 
+    - name: Cleanup test results directories
+      if: ${{ !cancelled() }}
+      run: |
+        rm -rf ctrf allure/results allure/report
+        mkdir -p ctrf allure/results
+
     - name: Test with pytest
       if: ${{ !cancelled() && steps.install_qt.conclusion == 'success' && steps.build.conclusion == 'success' }}
       id: pytest
       run: |
-        mkdir -p ctrf
         xvfb-run --auto-servernum   \
           uv run pytest -v          \
             --ctrf=ctrf/pytest.json \
@@ -111,9 +118,7 @@ jobs:
       id: mocha
       run: |
         pnpm c8 -r lcov -o coverage-mocha \
-            mocha \
-              --reporter mocha-ctrf-json-reporter \
-              --reporter-option output=ctrf/mocha.json
+            ./scripts/mocha.ts
 
     - name: Export assets
       id: export_assets
@@ -154,6 +159,24 @@ jobs:
       with:
         name: ctrf
         path: ctrf
+
+    - name: Generate Allure report
+      id: allure
+      if: ${{ !cancelled() }}
+      run: pnpm allure generate allure/results
+
+    - name: Upload Allure report
+      if: ${{ !cancelled() && steps.allure.conclusion == 'success' }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: allure_report
+        path: allure/report
+
+    - name: Run Allure Action
+      uses: allure-framework/allure-action@v0.6.2
+      with:
+        report-directory: "./allure/report"
+        github-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Upload to Argos
       if: >

@@ -6,6 +6,7 @@
 .ruff_cache
 .secrets
 .venv
+allure/
 bak/
 coverage/
 coverage.*

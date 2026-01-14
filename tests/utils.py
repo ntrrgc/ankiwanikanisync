@@ -26,6 +26,7 @@ from unittest import mock
 
 import pytest
 import pytest_asyncio
+from allure import step
 from anki.collection import Card, Note
 from anki.consts import (
     CARD_TYPE_LRN,
@@ -425,10 +426,11 @@ def cleanup_after(scope: Literal["session", "package", "module", "class", "funct
     return fixture
 
 
-def pending_ops_complete():
+async def pending_ops_complete():
     from .conftest import aqt
 
-    return aqt.mw.taskman.pending_ops_completed()
+    with step("Wait for pending ops"):
+        await aqt.mw.taskman.pending_ops_completed()
 
 
 @overload
@@ -514,6 +516,24 @@ class SaveAttr:
             setattr(obj, attr, val)
 
 
+class Step:
+    def __init__(self, name: str):
+        self.name = name
+
+    def __call__[**P, R](self, fn: Callable[P, R]) -> Callable[P, R]:
+        return fn
+
+    def __enter__(self) -> None:
+        pass
+
+    def __exit__(self, exc_type: type, exc_val, traceback) -> None:
+        pass
+
+
+def step_stub(name: str) -> Step:
+    return Step(name)
+
+
 def get_dist_fixtures() -> Path:
     import ankiwanikanisync
 
@@ -524,6 +544,7 @@ def get_dist_fixtures() -> Path:
     return fixtures
 
 
+@step("Write fixtures")
 def write_fixtures(mod: str, test: str) -> None:
     from ankiwanikanisync.collection import wk_col
 
@@ -543,3 +564,8 @@ def write_fixtures(mod: str, test: str) -> None:
     fn = f"{mod}.{test}.json"
     with (fixtures / fn).open("w") as f:
         json.dump(res, f, ensure_ascii=False, indent=4)
+
+
+async def sync_subjects():
+    with step("Sync subjects"):
+        await lazy.sync.do_sync()

@@ -1,7 +1,7 @@
+from unittest import mock
 from unittest.mock import Mock
 
 import pytest
-from pytest_mock import MockerFixture
 
 from ankiwanikanisync.promise import Promise
 from ankiwanikanisync.promise_asyncio import AsyncIOScheduler, StubHandle
@@ -23,21 +23,20 @@ async def test_promise_asyncio_call_soon():
 
 
 @pytest.mark.asyncio
-async def test_promise_asyncio_call_soon_cancel(mocker: MockerFixture):
-    mocker.patch("threading.current_thread")
+async def test_promise_asyncio_call_soon_cancel():
+    with mock.patch("threading.current_thread"):
+        sched = Promise.scheduler
+        assert isinstance(sched, AsyncIOScheduler)
 
-    sched = Promise.scheduler
-    assert isinstance(sched, AsyncIOScheduler)
+        mock_cb = Mock()
 
-    mock_cb = Mock()
+        canc = sched.call_soon(mock_cb)
+        assert isinstance(canc, StubHandle)
+        assert not canc.cancelled()
 
-    canc = sched.call_soon(mock_cb)
-    assert isinstance(canc, StubHandle)
-    assert not canc.cancelled()
+        canc.cancel()
+        assert canc.cancelled()
 
-    canc.cancel()
-    assert canc.cancelled()
+        await Promise.resolve()
 
-    await Promise.resolve()
-
-    assert not mock_cb.called
+        assert not mock_cb.called
