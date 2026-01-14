@@ -13,6 +13,7 @@ jobs:
 
     env:
       AWKS_ENV: github-workflow
+      GITHUB_ACTIONS: true
 
     strategy:
       matrix:
