@@ -8,6 +8,7 @@
     "allowJs": true,
     "alwaysStrict": true,
     "checkJs": true,
+    "experimentalDecorators": true,
     "noEmit": true,
     "noImplicitAny": true,
     "noImplicitThis": true,

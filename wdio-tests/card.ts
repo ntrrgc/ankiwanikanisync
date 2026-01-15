@@ -3,6 +3,7 @@ import { Key } from "webdriverio";
 
 import { assert } from "../ankiwanikanisync/data/files/_wk3_util.ts";
 import tmpl from "../dist/fixtures/templates.json" with { type: "json" };
+import { step } from "./util.ts";
 
 export type Fields = Record<string, string | number | object | null>;
 
@@ -162,6 +163,7 @@ export class Card {
         });
     }
 
+    @step("Type Answer")
     async typeAnswer(val: string): Promise<AnswerStatus> {
         assert(this.side === CardSide.Front);
         assert(this.answerField != null);
@@ -197,6 +199,7 @@ export class Card {
         });
     }
 
+    @step("Open Sections")
     async openSections(sel: string) {
         await browser.execute(sel => {
             for (const elem of document.querySelectorAll(sel)) {
@@ -205,6 +208,7 @@ export class Card {
         }, sel);
     }
 
+    @step("Open Section")
     async openSection(sel: string) {
         await browser.execute(sel => {
             const elem = document.querySelector(sel);
@@ -213,10 +217,12 @@ export class Card {
         }, sel);
     }
 
+    @step("Open Named Section")
     async openNamedSection(name: string) {
         await this.openSection(`//summary[normalize-space() = ${xpathQuote(name)}]/ancestor::details[1]`);
     }
 
+    @step("Show Card Front")
     async showFront(cardType: CardType, fields: Fields) {
         this.answerField = null;
         this.side = CardSide.Front;
@@ -229,6 +235,7 @@ export class Card {
         await this.#load(tmpl.cards[cardType]["qfmt"], this.fields);
     }
 
+    @step("Show Card Back")
     async showBack() {
         assert(this.side === CardSide.Front);
         assert(this.fields);
