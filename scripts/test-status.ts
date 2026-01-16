@@ -5,6 +5,8 @@ import { mergeReports, organizeTestsBySuite } from "ctrf";
 import type { Report, Summary, Test, TestStatus, TreeNode } from "ctrf";
 import { glob } from "glob";
 
+import { findTestLine, relname } from "./util.ts";
+
 const REPO = process.env.GITHUB_REPOSITORY ?? "kmaglione/ankiwanikanisync";
 const REF = process.env.GITHUB_REF ?? "refs/heads/master";
 const REF_NAME = process.env.GITHUB_REF_NAME ?? "master";
@@ -48,12 +50,6 @@ function emit(str: string): void {
     output.push(str);
 }
 
-const cwd = `${process.cwd()}/`;
-
-function relname(path: string): string {
-    return path.replace(cwd, "");
-}
-
 const reports: Report[] = [];
 
 for (const fn of await glob("ctrf/*.json")) {
@@ -68,6 +64,9 @@ for (const { results } of reports) {
             test.suite = [tool, relname(test.filePath), ...test.suite];
         } else {
             test.suite = [tool, ...(test.suite || [])];
+        }
+        if (test.line == null) {
+            test.line = await findTestLine(test);
         }
     }
 }
@@ -106,7 +105,7 @@ function testPath(test: Test): string {
 const CODE = "```";
 
 function testLine(test: Test): string {
-    if (test.line) {
+    if (test.line != null) {
         return `#L${test.line}`;
     }
     return `#:~:text=${encodeURIComponent(test.name)}`;
