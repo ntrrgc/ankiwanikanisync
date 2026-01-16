@@ -18,6 +18,7 @@ jobs:
     strategy:
       matrix:
         node-version: [25.x]
+        python: [3.13]
 
     steps:
     - uses: actions/checkout@v5
@@ -33,6 +34,7 @@ jobs:
         wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo dd of=/etc/apt/keyrings/google.asc
         wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo dd of=/etc/apt/trusted.gpg.d/google.asc
         echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/google.asc] http://dl.google.com/linux/chrome/deb/ stable main" | sudo dd of=/etc/apt/sources.list.d/google.list
+        sudo apt update || true
 
     - name: Install Qt dependencies
       uses: awalsh128/cache-apt-pkgs-action@latest
@@ -57,10 +59,10 @@ jobs:
              xvfb
              google-chrome-stable
 
-    - name: Set up Python
+    - name: Set up Python ${{ matrix.python }}
       uses: actions/setup-python@v6
       with:
-        python-version-file: "pyproject.toml"
+        python-version: ${{ matrix.python }}
 
     - name: Setup pnpm
       uses: pnpm/action-setup@v4
