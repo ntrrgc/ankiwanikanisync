@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from ankiwanikanisync.wk_api import wk
 
 from .fixtures import SubSession

@@ -11,7 +11,7 @@ const mocha = new Mocha({
                 outputFile: "mocha.json",
             }],
         ],
-        resultsDir: "allure/results",
+        resultsDir: ".allure/results",
     },
 });
 

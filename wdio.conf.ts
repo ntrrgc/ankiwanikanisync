@@ -74,7 +74,7 @@ export const config: WebdriverIO.Config = {
 
     reporters: [
         "spec",
-        ["allure", { outputDir: "allure/results" }],
+        ["allure", { outputDir: ".allure/results" }],
         ["ctrf-json", { outputDir: "./ctrf" }],
     ],
 

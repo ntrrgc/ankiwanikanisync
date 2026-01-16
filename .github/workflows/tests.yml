@@ -99,8 +99,8 @@ jobs:
     - name: Cleanup test results directories
       if: ${{ !cancelled() }}
       run: |
-        rm -rf ctrf allure/results allure/report
-        mkdir -p ctrf allure/results
+        rm -rf ctrf .allure/results .allure/report
+        mkdir -p ctrf .allure/results
 
     - name: Test with pytest
       if: ${{ !cancelled() && steps.install_qt.conclusion == 'success' && steps.build.conclusion == 'success' }}
@@ -172,19 +172,19 @@ jobs:
     - name: Generate Allure report
       id: allure
       if: ${{ !cancelled() }}
-      run: pnpm allure generate allure/results
+      run: pnpm allure generate .allure/results
 
     - name: Upload Allure report
       if: ${{ !cancelled() && steps.allure.conclusion == 'success' }}
       uses: actions/upload-artifact@v4
       with:
         name: allure_report
-        path: allure/report
+        path: .allure/report
 
     - name: Run Allure Action
       uses: allure-framework/allure-action@v0.6.2
       with:
-        report-directory: "./allure/report"
+        report-directory: "./.allure/report"
         github-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Upload to Argos

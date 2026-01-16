@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import override
 
 from aqt.qt import QApplication, QEvent, QObject

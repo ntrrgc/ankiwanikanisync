@@ -4,8 +4,8 @@ import { defineConfig } from "allure";
 
 export default defineConfig({
     name: "Test Report",
-    historyPath: "allure/history.jsonl",
-    output: "allure/report",
+    historyPath: ".allure/history.jsonl",
+    output: ".allure/report",
     plugins: {
         "awesome-suite": {
             import: "@allurereport/plugin-awesome",

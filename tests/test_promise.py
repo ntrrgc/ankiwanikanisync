@@ -1,4 +1,6 @@
 # ruff: noqa: RUF029
+from __future__ import annotations
+
 import asyncio
 import gc
 import unittest.mock

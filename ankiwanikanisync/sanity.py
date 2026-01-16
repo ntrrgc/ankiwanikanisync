@@ -1,4 +1,6 @@
 # ruff: noqa: RUF029
+from __future__ import annotations
+
 from collections.abc import Awaitable
 from typing import (  # noqa: F401
     Any,

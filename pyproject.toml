@@ -66,7 +66,7 @@ exclude = [
 [tool.pytest]
 asyncio_mode = "auto"
 addopts = [
-    "--alluredir=allure/results",
+    "--alluredir=.allure/results",
     "--doctest-modules",
     # We need "dist" to appear before "." in `sys.path` so that our add-on
     # modules are imported from dist/ rather than ankiwanikanisync/, where
@@ -161,3 +161,6 @@ skip-magic-trailing-comma = false
 
 # Like Black, automatically detect the appropriate line ending.
 line-ending = "auto"
+
+[tool.ruff.lint.isort]
+required-imports = ["from __future__ import annotations"]
