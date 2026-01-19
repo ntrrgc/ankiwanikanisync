@@ -16,6 +16,7 @@ def test_tools_menu(tools_menu: dict[str, QAction]):
         "Sync Due Dates",
         "Clear Cache",
         "Overwrite Card HTML",
+        "Migrate from WK3: Tokyo Drift",
     ]
 
 

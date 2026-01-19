@@ -433,6 +433,11 @@ async def pending_ops_complete():
         await aqt.mw.taskman.pending_ops_completed()
 
 
+def fixture_path(name: str) -> Path:
+    dir = Path(__file__).parent
+    return dir / "fixtures" / name
+
+
 @overload
 def open_fixture(name: str, mode: Literal["r"]) -> IO[str]: ...
 
