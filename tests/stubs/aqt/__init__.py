@@ -79,12 +79,18 @@ class TaskMan:
         self.add_pending_op(Promise.resolve().finally_(cb))
 
 
+class App:
+    def activeWindow(self) -> QWidget:
+        return mw
+
+
 class MW(QWidget):
     col: Collection | None = None
 
     def __init__(self):
         super().__init__()
         self.addonManager = MagicMock()
+        self.app = App()
         self.form = MagicMock()
         self.form.menuTools = QMenu("Tools", self)
         self.progress = MagicMock()

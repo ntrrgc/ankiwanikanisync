@@ -16,6 +16,7 @@ from typing import (
 
 from aqt import mw
 from aqt.operations import CollectionOp, QueryOp, ResultWithChanges
+from aqt.qt import QDialog, QDialogButtonBox, QLabel, QListWidget, Qt, QVBoxLayout
 from aqt.utils import tooltip
 
 from .promise import Promise, ResFn
@@ -100,6 +101,7 @@ def query_op(
                 if with_progress:
                     query_op.with_progress()
                 query_op.run_in_background()
+
             return promise
 
         return wrapper
@@ -123,6 +125,7 @@ def collection_op(
             op.success(resolve)
             op.failure(reject)
             op.run_in_background()
+
         return promise
 
     return wrapper
@@ -140,7 +143,7 @@ def compose[FRT, **GP, GRT](
         # This might be nice in some limited use cases, but probably isn't
         # worth the computational cost of copying the __annotations__ dict
         # most of the time.
-        composed.__type_params__ = g.__type_params__ # type: ignore
+        composed.__type_params__ = g.__type_params__  # type: ignore
         composed.__annotations__ = dict(g.__annotations__)
         composed.__annotations__["return"] = f.__annotations__["return"]
     return composed
@@ -158,5 +161,30 @@ def report_progress(txt, val, max):
     mw.taskman.run_on_main(lambda: mw.progress.update(label=txt, value=val, max=max))
 
 
-def show_tooltip(txt, period=3000): # pragma: no cover
+def show_tooltip(txt, period=3000):  # pragma: no cover
     mw.taskman.run_on_main(lambda: tooltip(txt, period=period))
+
+
+def choose_list(msg: str, choices=Sequence[str], start_row: int = 0) -> int | None:
+    dialog = QDialog(mw.app.activeWindow())
+    dialog.setWindowModality(Qt.WindowModality.WindowModal)
+
+    layout = QVBoxLayout()
+    dialog.setLayout(layout)
+
+    label = QLabel(msg)
+    layout.addWidget(label)
+
+    listbox = QListWidget()
+    listbox.addItems(choices)
+    listbox.setCurrentRow(start_row)
+    layout.addWidget(listbox)
+
+    buttons = QDialogButtonBox(
+        QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel
+    )
+    buttons.accepted.connect(dialog.accept)
+    buttons.rejected.connect(dialog.reject)
+    layout.addWidget(buttons)
+
+    return listbox.currentRow() if dialog.exec() else None
