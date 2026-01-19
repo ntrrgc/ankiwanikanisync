@@ -10,7 +10,7 @@ from .promise_qt import QtScheduler
 
 sys.path.append(str(Path(__file__).parent / "deps"))
 
-__version__ = "0.3.0"
+__version__ = "0.3.1"
 
 Promise.set_scheduler(QtScheduler())
 
