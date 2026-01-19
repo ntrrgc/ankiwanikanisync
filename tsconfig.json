@@ -13,7 +13,8 @@
     "noImplicitAny": true,
     "noImplicitThis": true,
     "noImplicitOverride": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "resolveJsonModule": true
   },
   "sourceMap": true
 }
