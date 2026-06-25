@@ -140,21 +140,6 @@ jobs:
         pnpm nyc merge coverage .nyc_output/out.json
         pnpm nyc report --reporter=lcov
 
-    - name: Publish Test Report
-      uses: ctrf-io/github-test-reporter@v1
-      if: ${{ !env.NO_CTRF }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        report-path: './ctrf/*.json'
-        github-report: true
-        summary-report: true
-        failed-report: true
-        fail-rate-report: true
-        slowest-report: true
-        skipped-report: true
-        upload-artifact: true
-
     - name: Add test status summary
       if: always()
       run: |
@@ -182,21 +167,6 @@ jobs:
       with:
         name: allure_report
         path: .allure/report
-
-    - name: Run Allure Action
-      uses: allure-framework/allure-action@v0.6.2
-      with:
-        report-directory: "./.allure/report"
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Upload to Argos
-      if: >
-        !cancelled()
-          && !env.NO_ARGOS
-          && steps.install_qt.conclusion == 'success'
-          && steps.export_assets.conclusion == 'success'
-      continue-on-error: true
-      run: pnpm argos upload --token ${{ secrets.ARGOS_TOKEN }} screenshots
 
     - name: Create wdio visual report
       id: wdio_visual_report
@@ -249,51 +219,6 @@ jobs:
       env:
         STEPS: ${{ toJSON(steps) }}
       run: pnpm ./scripts/badges.ts
-
-    - name: Upload version badge svg
-      uses: exuanbo/actions-deploy-gist@v1
-      if: ${{ !cancelled() && steps.badges.conclusion == 'success' }}
-      with:
-        token: ${{ secrets.GIST_TOKEN }}
-        gist_id: 8de11cd55fbde45736cf02cd9fa67472
-        file_path: ${{ fromJSON(steps.badges.outputs.badges).version.svgFile }}
-        gist_file_name: version.svg
-
-    - name: Upload Pytest badge svg
-      uses: exuanbo/actions-deploy-gist@v1
-      if: ${{ !cancelled() && steps.badges.conclusion == 'success' }}
-      with:
-        token: ${{ secrets.GIST_TOKEN }}
-        gist_id: 8de11cd55fbde45736cf02cd9fa67472
-        file_path: ${{ fromJSON(steps.badges.outputs.badges).Pytest.svgFile }}
-        gist_file_name: pytest.svg
-
-    - name: Upload Mocha badge svg
-      uses: exuanbo/actions-deploy-gist@v1
-      if: ${{ !cancelled() && steps.badges.conclusion == 'success' }}
-      with:
-        token: ${{ secrets.GIST_TOKEN }}
-        gist_id: 8de11cd55fbde45736cf02cd9fa67472
-        file_path: ${{ fromJSON(steps.badges.outputs.badges).Mocha.svgFile }}
-        gist_file_name: mocha.svg
-
-    - name: Upload WDIO badge svg
-      uses: exuanbo/actions-deploy-gist@v1
-      if: ${{ !cancelled() && steps.badges.conclusion == 'success' }}
-      with:
-        token: ${{ secrets.GIST_TOKEN }}
-        gist_id: 8de11cd55fbde45736cf02cd9fa67472
-        file_path: ${{ fromJSON(steps.badges.outputs.badges).WDIO.svgFile }}
-        gist_file_name: wdio.svg
-
-    - name: Upload lint badge svg
-      uses: exuanbo/actions-deploy-gist@v1
-      if: ${{ !cancelled() && steps.badges.conclusion == 'success' }}
-      with:
-        token: ${{ secrets.GIST_TOKEN }}
-        gist_id: 8de11cd55fbde45736cf02cd9fa67472
-        file_path: ${{ fromJSON(steps.badges.outputs.badges).lint.svgFile }}
-        gist_file_name: lint.svg
 
     - name: Export zip file
       id: export_zip
